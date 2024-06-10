@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.4.6.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
+    {% block head %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+        }
+        .navbar-brand {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffffff !important;
+        }
+        .navbar {
+            background-color: rgba(52, 58, 64, 0.5) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,.04);
+        }
+        .navbar-light .navbar-nav .nav-link {
+            color: #ffffff !important;
+            transition: color 0.3s ease;
+        }
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #dcdcdc !important;
+        }
+        .form-control {
+            width: 250px;
+        }
+        .welcome-message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            color: #495057;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: 1px solid #dee2e6;
+        }
+        .card-body {
+            background-color: #ffffff;
+        }
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+            display: none; /* Hide the footer */
+        }
+        .navbar-avatar {
+            vertical-align: middle;
+            margin-right: 8px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">知否知否</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('qa.public_question') }}">发布问答</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="{{ url_for('qa.search') }}">
+                            <input class="form-control mr-sm-2" type="search" placeholder="关键字" aria-label="Search" name="q">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user %}
+                        <li class="nav-item user-info">
+                            {% if user.avatar %}
+                                <img src="{{ url_for('static', filename='user_images/' + user.avatar) }}" alt="Avatar" class="navbar-avatar">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default-avatar.png') }}" alt="Avatar" class="navbar-avatar">
+                            {% endif %}
+                            <span class="nav-link">欢迎，{{ user.username }}!</span>
+                            <a class="nav-link" href="{{ url_for('auth.profile') }}">编辑资料</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.logout') }}">退出登录</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.login') }}">登录</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.register') }}">注册</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block body %}
+        <!-- 页面主体内容 -->
+        {% endblock %}
+    </div>
+</body>
+</html>

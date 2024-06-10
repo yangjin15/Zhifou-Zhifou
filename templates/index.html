@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<style>
+    body {
+        background-image: url('{{ url_for('static', filename='images/index_image.JPEG') }}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+    }
+    .question-ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .question-ul li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.7); /* Even more transparent */
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .side-question-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+    .question-main {
+        flex: 1;
+    }
+    .question-title a {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #007bff;
+        text-decoration: none;
+    }
+    .question-title a:hover {
+        text-decoration: underline;
+    }
+    .question-content {
+        margin-top: 10px;
+        font-size: 1.1em;
+        color: #555;
+    }
+    .question-detail {
+        margin-top: 10px;
+        font-size: 0.9em;
+        color: #777;
+    }
+    .question-author {
+        font-weight: bold;
+    }
+    .question-time {
+        margin-left: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="row" style="margin-top: 20px;">
+    <div class="col"></div>
+    <div class="col-10">
+        <ul class="question-ul">
+            {% for question in questions %}
+            <li>
+                <div class="side-question">
+                    {% if question.author.avatar %}
+                        <img class="side-question-avatar" src="{{ url_for('static', filename='user_images/' + question.author.avatar) }}" alt="Avatar">
+                    {% else %}
+                        <img class="side-question-avatar" src="{{ url_for('static', filename='images/default-avatar.png') }}" alt="Avatar">
+                    {% endif %}
+                </div>
+                <div class="question-main">
+                    <div class="question-title"><a href="{{ url_for('qa.qa_detail', qa_id=question.id) }}">{{ question.title }}</a></div>
+                    <div class="question-content">{{ question.content }}</div>
+                    <div class="question-detail">
+                        <span class="question-author">{{ question.author.username }}</span>
+                        <span class="question-time">{{ question.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock %}

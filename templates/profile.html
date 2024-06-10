@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    body {
+        background-image: url('{{ url_for('static', filename='images/profile_image.JPEG') }}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-color: #f7f7f7; /* Fallback color */
+    }
+    .profile-container {
+        background-color: rgba(255, 255, 255, 0.7); /* Adjusted transparency */
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-top: 40px;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .flash-messages {
+        margin-bottom: 20px;
+        font-size: 1em;
+        color: #d9534f; /* Bootstrap danger color for better visibility */
+        text-align: center;
+    }
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+    }
+    .form-control, .form-control-file {
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .form-control-file {
+        border: none;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 15px;
+        width: 100%;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004080;
+    }
+    .form-header h2 {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="profile-container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="form-header">
+            <h2>编辑资料</h2>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="avatar">上传头像</label>
+                <input type="file" class="form-control-file" id="avatar" name="avatar">
+            </div>
+            <div class="form-group">
+                <label for="bio">个人简介</label>
+                <textarea class="form-control" id="bio" name="bio" rows="3">{{ user.bio }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">保存修改</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

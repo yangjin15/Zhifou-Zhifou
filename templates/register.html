@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script src="{{ url_for('static', filename='jquery/jquery.3.6.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/register_image.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-color: #f0f8ff;
+        }
+        .register-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            max-width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-group input, .form-group textarea {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            width: 100%;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: bold;
+            width: 100%;
+            padding: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004080;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-header h1 {
+            font-weight: bold;
+            color: #333;
+        }
+        .input-group-append .btn-outline-secondary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+        .input-group-append .btn-outline-secondary:hover {
+            background-color: #0056b3;
+            border-color: #004080;
+        }
+        .form-text {
+            margin-top: -10px;
+            margin-bottom: 20px;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row mt-4">
+        <div class="col"></div>
+        <div class="col-10">
+            <div class="register-container">
+                <div class="form-header">
+                    <h1>立即注册</h1>
+                </div>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">邮箱</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>
+                        <small id="emailHelp" class="form-text text-muted">我们不会把邮箱用于其他用途</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="captcha">验证码</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="captcha" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="captcha-btn">获取验证码</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" class="form-control" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密码</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirm">确认密码</label>
+                        <input type="password" class="form-control" name="password_confirm" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">立即注册</button>
+                </form>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+{% endblock %}

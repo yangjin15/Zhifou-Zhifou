@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}发布问答{% endblock %}
+
+{% block head %}
+<style>
+    body {
+        background-image: url('{{ url_for('static', filename='images/public_question_image.JPEG') }}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-color: #f0f8ff; /* Fallback color */
+    }
+    .publish-container {
+        background-color: rgba(255, 255, 255, 0.7); /* Adjusted transparency */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .form-group input, .form-group textarea {
+        margin-bottom: 20px;
+        width: 100%;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        font-size: 16px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-weight: bold;
+        padding: 10px 20px; /* Adjust padding for better appearance */
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004080;
+    }
+    .form-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .form-header h1 {
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col"></div>
+    <div class="col-10">
+        <div class="publish-container">
+            <div class="form-header">
+                <h1>发布问答</h1>
+            </div>
+            <form action="{{ url_for('qa.public_question') }}" method="post">
+                <div class="form-group">
+                    <input type="text" name="title" class="form-control" placeholder="请输入标题" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="10" placeholder="请输入内容" required></textarea>
+                </div>
+                <div class="form-group" style="text-align: right;">
+                    <button class="btn btn-primary">发布</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock %}
